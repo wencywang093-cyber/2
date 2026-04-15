@@ -1,13 +1,306 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document Editor</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
-</html>
+<!DOCTYPE html>  
+<html lang="zh-CN">  
+<head>  
+  <meta charset="UTF-8">  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+  <title>王文捷 - 个人简历</title>  
+  <style>  
+    * { margin: 0; padding: 0; box-sizing: border-box; }  
+    :root { --bg-primary: #ffffff; --bg-secondary: #f8fafc; --text-primary: #1e293b; --text-secondary: #64748b; }  
+    .dark { --bg-primary: #0f172a; --bg-secondary: #1e293b; --text-primary: #f1f5f9; --text-secondary: #94a3b8; }  
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: var(--bg-primary); color: var(--text-primary); transition: background 0.3s, color 0.3s; line-height: 1.6; }  
+    .creative-bg { background: radial-gradient(circle at 20% 80%, rgba(139, 92, 246, 0.15) 0%, transparent 50%), radial-gradient(circle at 80% 20%, rgba(16, 185, 129, 0.15) 0%, transparent 50%); min-height: 100vh; }  
+    header { position: fixed; top: 0; left: 0; right: 0; z-index: 50; background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(10px); border-bottom: 1px solid #e2e8f0; }  
+    .dark header { background: rgba(15, 23, 42, 0.8); border-bottom-color: #1e293b; }  
+    .nav-container { max-width: 1200px; margin: 0 auto; padding: 0 1rem; display: flex; justify-content: space-between; align-items: center; height: 4rem; }  
+    .logo { font-size: 1.5rem; font-weight: bold; background: linear-gradient(135deg, #8b5cf6 0%, #10b981 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }  
+    .nav-links { display: flex; gap: 0.5rem; }  
+    .nav-links a { padding: 0.5rem 1rem; border-radius: 0.5rem; text-decoration: none; color: var(--text-secondary); font-size: 0.875rem; font-weight: 500; }  
+    .nav-links a:hover { background: var(--bg-secondary); }  
+    .nav-controls { display: flex; gap: 0.5rem; }  
+    .btn-icon { padding: 0.5rem; border-radius: 0.5rem; background: transparent; border: none; cursor: pointer; color: var(--text-secondary); }  
+    .btn-icon:hover { background: var(--bg-secondary); }  
+    .hero { padding: 8rem 1rem 4rem; max-width: 1200px; margin: 0 auto; }  
+    .hero-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center; }  
+    .hero-content h1 { font-size: 3rem; font-weight: bold; margin-bottom: 1rem; }  
+    .hero-name { background: linear-gradient(135deg, #8b5cf6 0%, #10b981 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }  
+    .hero-title { font-size: 1.5rem; color: var(--text-secondary); margin-bottom: 1.5rem; }  
+    .hero-description { color: var(--text-secondary); margin-bottom: 2rem; max-width: 500px; }  
+    .hero-info { display: flex; gap: 1.5rem; margin-bottom: 2rem; flex-wrap: wrap; }  
+    .hero-info-item { display: flex; align-items: center; gap: 0.5rem; color: var(--text-secondary); }  
+    .hero-buttons { display: flex; gap: 1rem; flex-wrap: wrap; }  
+    .btn { padding: 1rem 2rem; border-radius: 0.75rem; font-weight: 600; cursor: pointer; transition: all 0.2s; text-decoration: none; display: inline-block; }  
+    .btn-primary { background: linear-gradient(135deg, #8b5cf6 0%, #10b981 100%); color: white; border: none; }  
+    .btn-primary:hover { opacity: 0.9; transform: translateY(-2px); }  
+    .btn-secondary { background: transparent; color: #8b5cf6; border: 2px solid #8b5cf6; }  
+    .btn-secondary:hover { background: rgba(139, 92, 246, 0.1); }  
+    .hero-image { display: flex; justify-content: center; animation: float 6s ease-in-out infinite; }  
+    @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }  
+    .avatar { width: 20rem; height: 20rem; border-radius: 50%; background: linear-gradient(135deg, #8b5cf6 0%, #10b981 100%); padding: 4px; }  
+    .avatar-inner { width: 100%; height: 100%; border-radius: 50%; background: var(--bg-secondary); display: flex; align-items: center; justify-content: center; font-size: 5rem; }  
+    section { padding: 5rem 1rem; max-width: 1200px; margin: 0 auto; }  
+    .section-title { font-size: 2.5rem; font-weight: bold; text-align: center; margin-bottom: 3rem; background: linear-gradient(135deg, #8b5cf6 0%, #10b981 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }  
+    .experience { background: var(--bg-secondary); }  
+    .timeline { position: relative; max-width: 800px; margin: 0 auto; }  
+    .timeline::before { content: ''; position: absolute; left: 2rem; top: 0; bottom: 0; width: 2px; background: linear-gradient(180deg, #8b5cf6 0%, #10b981 100%); }  
+    .timeline-item { position: relative; padding-left: 5rem; margin-bottom: 2rem; }  
+    .timeline-item::before { content: ''; position: absolute; left: 1.25rem; top: 0.5rem; width: 1rem; height: 1rem; border-radius: 50%; background: linear-gradient(135deg, #8b5cf6 0%, #10b981 100%); border: 3px solid var(--bg-primary); }  
+    .timeline-card { background: var(--bg-primary); border-radius: 1rem; padding: 1.5rem; box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1); transition: transform 0.3s; }  
+    .timeline-card:hover { transform: translateY(-5px); }  
+    .timeline-header { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 1rem; margin-bottom: 1rem; }  
+    .timeline-title { font-size: 1.25rem; font-weight: bold; }  
+    .timeline-company { color: #8b5cf6; font-weight: 500; }  
+    .timeline-period { padding: 0.25rem 1rem; background: var(--bg-secondary); border-radius: 9999px; font-size: 0.875rem; color: var(--text-secondary); }  
+    .timeline-list { list-style: none; }  
+    .timeline-list li { display: flex; align-items: flex-start; gap: 0.5rem; color: var(--text-secondary); margin-bottom: 0.5rem; }  
+    .timeline-list li svg { width: 1.25rem; height: 1.25rem; color: #10b981; flex-shrink: 0; margin-top: 0.25rem; }  
+    .education-card { background: var(--bg-primary); border-radius: 1rem; padding: 1.5rem; margin-bottom: 1.5rem; box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1); }  
+    .education-header { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 1rem; margin-bottom: 1rem; }  
+    .education-school { font-size: 1.25rem; font-weight: bold; }  
+    .education-degree { color: #8b5cf6; }  
+    .education-period { padding: 0.25rem 1rem; background: var(--bg-secondary); border-radius: 9999px; font-size: 0.875rem; color: var(--text-secondary); }  
+    .education-courses { color: var(--text-secondary); font-size: 0.875rem; }  
+    .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }  
+    .project-card { background: var(--bg-primary); border-radius: 1rem; padding: 1.5rem; box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1); transition: transform 0.3s; }  
+    .project-card:hover { transform: translateY(-5px); }  
+    .project-title { font-size: 1.25rem; font-weight: bold; margin-bottom: 0.5rem; }  
+    .project-period { font-size: 0.875rem; color: var(--text-secondary); margin-bottom: 1rem; }  
+    .project-description { color: var(--text-secondary); margin-bottom: 1rem; }  
+    .project-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }  
+    .tag { padding: 0.25rem 0.75rem; background: rgba(139, 92, 246, 0.1); color: #8b5cf6; border-radius: 9999px; font-size: 0.75rem; }  
+    .skills { background: var(--bg-secondary); }  
+    .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; }  
+    .skills-card { background: var(--bg-primary); border-radius: 1rem; padding: 1.5rem; box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1); }  
+    .skills-title { font-size: 1.25rem; font-weight: bold; margin-bottom: 1.5rem; }  
+    .skill-item { margin-bottom: 1rem; }  
+    .skill-header { display: flex; justify-content: space-between; margin-bottom: 0.25rem; }  
+    .skill-name { font-size: 0.875rem; font-weight: 500; }  
+    .skill-level { font-size: 0.75rem; color: var(--text-secondary); }  
+    .skill-bar { height: 0.5rem; background: var(--bg-secondary); border-radius: 9999px; overflow: hidden; }  
+    .skill-bar-fill { height: 100%; background: linear-gradient(135deg, #8b5cf6 0%, #10b981 100%); transition: width 1s; }  
+    .contact { background: var(--bg-secondary); }  
+    .contact-info { max-width: 600px; margin: 0 auto; background: var(--bg-primary); border-radius: 1rem; padding: 2rem; box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1); }  
+    .contact-item { display: flex; align-items: center; gap: 1rem; padding: 1rem; margin-bottom: 1rem; border-radius: 0.75rem; background: var(--bg-secondary); }  
+    .contact-item svg { width: 1.5rem; height: 1.5rem; color: #8b5cf6; }  
+    footer { padding: 3rem 1rem; border-top: 1px solid var(--bg-secondary); }  
+    .footer-content { max-width: 1200px; margin: 0 auto; text-align: center; }  
+    .footer-text { color: var(--text-secondary); font-size: 0.875rem; }  
+    @media (max-width: 768px) { .hero-grid { grid-template-columns: 1fr; text-align: center; } .hero-content h1 { font-size: 2rem; } .hero-description { margin: 0 auto 2rem; } .hero-buttons { justify-content: center; } .hero-image { order: -1; } .avatar { width: 12rem; height: 12rem; } .nav-links { display: none; } .timeline::before { left: 1rem; } .timeline-item { padding-left: 3rem; } }  
+  </style>  
+</head>  
+<body>  
+  <div class="creative-bg">  
+    <header>  
+      <div class="nav-container">  
+        <span class="logo">Resume</span>  
+        <nav class="nav-links">  
+          <a href="#about">关于我</a>  
+          <a href="#education">教育背景</a>  
+          <a href="#experience">实习经历</a>  
+          <a href="#projects">实践活动</a>  
+          <a href="#skills">技能</a>  
+          <a href="#contact">联系</a>  
+        </nav>  
+        <div class="nav-controls">  
+          <button class="btn-icon" onclick="toggleDarkMode()" id="theme-btn">🌙</button>  
+        </div>  
+      </div>  
+    </header>  
+  
+    <section class="hero" id="about">  
+      <div class="hero-grid">  
+        <div class="hero-content">  
+          <p style="color: #8b5cf6; font-weight: 500; margin-bottom: 0.5rem;">你好，我是</p>  
+          <h1><span class="hero-name">王文捷</span></h1>  
+          <h2 class="hero-title">环球运营 / 工商管理</h2>  
+          <p class="hero-description">具备运营管理、数据分析和战略咨询经验，擅长通过数据驱动决策，助力企业优化流程与战略布局</p>  
+          <div class="hero-info">  
+            <div class="hero-info-item">  
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>  
+              <span>(+86) 198 3767 3550</span>  
+            </div>  
+            <div class="hero-info-item">  
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>  
+              <span>19837673550@163.com</span>  
+            </div>  
+          </div>  
+          <div class="hero-buttons">  
+            <button class="btn btn-primary" onclick="window.print()">下载 PDF</button>  
+            <a href="#contact" class="btn btn-secondary">联系我</a>  
+          </div>  
+        </div>  
+        <div class="hero-image">  
+          <div class="avatar"><div class="avatar-inner">🎓</div></div>  
+        </div>  
+      </div>  
+    </section>  
+  
+    <section id="education">  
+      <h2 class="section-title">教育背景</h2>  
+      <div class="education-card">  
+        <div class="education-header">  
+          <div>  
+            <h3 class="education-school">香港科技大学，商学院</h3>  
+            <p class="education-degree">环球运营专业</p>  
+          </div>  
+          <span class="education-period">2025.9 – 2026.7</span>  
+        </div>  
+        <p class="education-courses"><strong>核心课程：</strong>运营管理、数据分析、管理沟通、营销战略和政策、全球宏观经济、全球供应链管理、商业分析（R）等</p>  
+      </div>  
+      <div class="education-card">  
+        <div class="education-header">  
+          <div>  
+            <h3 class="education-school">上海财经大学，商学院</h3>  
+            <p class="education-degree">工商管理专业</p>  
+          </div>  
+          <span class="education-period">2020.9 – 2024.7</span>  
+        </div>  
+        <p class="education-courses"><strong>核心课程：</strong>高等数学、统计学、中级微观经济学、产业组织学、市场营销学、财务会计、人力资源管理、组织行为学、人事经济学、公司金融等</p>  
+      </div>  
+    </section>  
+  
+    <section class="experience" id="experience">  
+      <h2 class="section-title">实习经历</h2>  
+      <div class="timeline">  
+        <div class="timeline-item">  
+          <div class="timeline-card">  
+            <div class="timeline-header">  
+              <div>  
+                <h3 class="timeline-title">管理咨询实习生</h3>  
+                <p class="timeline-company">美世咨询公司</p>  
+              </div>  
+              <span class="timeline-period">2025.12 - 2026.2</span>  
+            </div>  
+            <ul class="timeline-list">  
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>协助完成公司年度业务复盘，多维度分析区域客户分布、客单价、目标达成率等核心数据，并通过 PPT 完成数据可视化呈现与年度业务总结报告制作</li>  
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>深度参与管理咨询项目，包括组织结构问题诊断、人才模型搭建等工作，结合企业战略目标给出建议</li>  
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>通过访谈提炼各销售岗位核心业务场景与高绩效行为特质并总结共性，构建"教练型"销售人才模型，帮助民营企业转型</li>  
+            </ul>  
+          </div>  
+        </div>  
+        <div class="timeline-item">  
+          <div class="timeline-card">  
+            <div class="timeline-header">  
+              <div>  
+                <h3 class="timeline-title">战略顾问部实习生</h3>  
+                <p class="timeline-company">世邦魏理仕（CBRE）</p>  
+              </div>  
+              <span class="timeline-period">2024.10 - 2025.1</span>  
+            </div>  
+            <ul class="timeline-list">  
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>收集并汇总物业地产的一手信息，包括零售商业、办公和商务园区等，为客户提供战略方向建议和战术资源对接</li>  
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>参与撰写静安区高端消费品行业发展提质升级策略研究报告，通过多渠道收集数据并交叉验证，得出全球奢侈品市场恢复增长的初步结论</li>  
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>收集湛江经济技术开发区、鄂州花湖机场、上海临港特区、上海市北高新区的宏观经济数据和产业分布情况，为区域经济发展提供数据支持</li>  
+            </ul>  
+          </div>  
+        </div>  
+      </div>  
+    </section>  
+  
+    <section id="projects">  
+      <h2 class="section-title">实践活动</h2>  
+      <div class="projects-grid">  
+        <div class="project-card">  
+          <h3 class="project-title">Hkust 安骏快递出海项目</h3>  
+          <p class="project-period">2026.2 – 至今</p>  
+          <p class="project-description">协助安骏团队开展南美三国电商物流市场专项调研，主导完成巴西/秘鲁/智利三份深度分析报告框架搭建，聚焦市场现状、竞争格局及安骏本地化布局策略</p>  
+          <div class="project-tags"><span class="tag">市场调研</span><span class="tag">物流</span><span class="tag">跨境电商</span></div>  
+        </div>  
+        <div class="project-card">  
+          <h3 class="project-title">蔓越莓制造流程优化案例分析</h3>  
+          <p class="project-period">2025.9 – 2025.10</p>  
+          <p class="project-description">基于实际生产数据开展流程诊断与优化，主导绘制湿蔓越莓库存堆积图辅助问题可视化分析，测算利用率，制定"新增 1 台干燥机 + 7:00 启动干燥工序"核心方案，平衡成本与效率</p>  
+          <div class="project-tags"><span class="tag">流程优化</span><span class="tag">数据分析</span><span class="tag">运营管理</span></div>  
+        </div>  
+        <div class="project-card">  
+          <h3 class="project-title">上海财经大学商学院学术事业部</h3>  
+          <p class="project-period">2020.9 – 2021.7</p>  
+          <p class="project-description">在院级商赛"工商杯"中担任策划小组领导者，带领团队制定比赛形式，确立初赛、复赛和决赛的流程及评分标准；负责与 68 支参赛队伍的沟通协调，确保比赛顺利进行</p>  
+          <div class="project-tags"><span class="tag">活动策划</span><span class="tag">团队领导</span><span class="tag">沟通协调</span></div>  
+        </div>  
+      </div>  
+    </section>  
+  
+    <section class="skills" id="skills">  
+      <h2 class="section-title">技能与证书</h2>  
+      <div class="skills-grid">  
+        <div class="skills-card">  
+          <h3 class="skills-title">语言能力</h3>  
+          <div class="skill-item">  
+            <div class="skill-header"><span class="skill-name">英语（雅思）</span><span class="skill-level">7.0</span></div>  
+            <div class="skill-bar"><div class="skill-bar-fill" style="width: 85%;"></div></div>  
+            <p style="font-size: 0.75rem; color: var(--text-secondary); margin-top: 0.25rem;">W:7.0, R:8.0, S:6.5, L:6.5</p>  
+          </div>  
+          <div class="skill-item">  
+            <div class="skill-header"><span class="skill-name">中文（母语）</span><span class="skill-level">Native</span></div>  
+            <div class="skill-bar"><div class="skill-bar-fill" style="width: 100%;"></div></div>  
+          </div>  
+        </div>  
+        <div class="skills-card">  
+          <h3 class="skills-title">数据分析</h3>  
+          <div class="skill-item">  
+            <div class="skill-header"><span class="skill-name">Excel</span><span class="skill-level">精通</span></div>  
+            <div class="skill-bar"><div class="skill-bar-fill" style="width: 95%;"></div></div>  
+            <p style="font-size: 0.75rem; color: var(--text-secondary); margin-top: 0.25rem;">数据可视化、透视表、VLOOKUP、数据清洗</p>  
+          </div>  
+          <div class="skill-item">  
+            <div class="skill-header"><span class="skill-name">R 语言</span><span class="skill-level">基础</span></div>  
+            <div class="skill-bar"><div class="skill-bar-fill" style="width: 70%;"></div></div>  
+          </div>  
+          <div class="skill-item">  
+            <div class="skill-header"><span class="skill-name">SQL</span><span class="skill-level">熟练</span></div>  
+            <div class="skill-bar"><div class="skill-bar-fill" style="width: 80%;"></div></div>  
+            <p style="font-size: 0.75rem; color: var(--text-secondary); margin-top: 0.25rem;">基础查询语法及数据提取</p>  
+          </div>  
+        </div>  
+        <div class="skills-card">  
+          <h3 class="skills-title">专业工具</h3>  
+          <div class="skill-item">  
+            <div class="skill-header"><span class="skill-name">PowerPoint</span><span class="skill-level">熟练</span></div>  
+            <div class="skill-bar"><div class="skill-bar-fill" style="width: 90%;"></div></div>  
+            <p style="font-size: 0.75rem; color: var(--text-secondary); margin-top: 0.25rem;">咨询级 PPT 制作经验</p>  
+          </div>  
+          <div class="skill-item">  
+            <div class="skill-header"><span class="skill-name">SAP</span><span class="skill-level">基础</span></div>  
+            <div class="skill-bar"><div class="skill-bar-fill" style="width: 75%;"></div></div>  
+            <p style="font-size: 0.75rem; color: var(--text-secondary); margin-top: 0.25rem;">核心模块操作与业务流程</p>  
+          </div>  
+        </div>  
+      </div>  
+    </section>  
+  
+    <section class="contact" id="contact">  
+      <h2 class="section-title">联系方式</h2>  
+      <div class="contact-info">  
+        <div class="contact-item">  
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>  
+          <span>(+86) 198 3767 3550</span>  
+        </div>  
+        <div class="contact-item">  
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>  
+          <span>19837673550@163.com</span>  
+        </div>  
+        <div class="contact-item">  
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>  
+          <span>香港 / 上海</span>  
+        </div>  
+      </div>  
+    </section>  
+  
+    <footer>  
+      <div class="footer-content">  
+        <p class="footer-text">© <span id="year"></span> 王文捷。版权所有.</p>  
+        <p class="footer-text" style="margin-top: 0.5rem;">香港科技大学 × 上海财经大学</p>  
+      </div>  
+    </footer>  
+  </div>  
+  
+  <script>  
+    let isDark = false;  
+    function toggleDarkMode() { isDark = !isDark; document.body.classList.toggle('dark'); document.getElementById('theme-btn').textContent = isDark ? '☀️' : '🌙'; localStorage.setItem('darkMode', isDark); }  
+    if (localStorage.getItem('darkMode') === 'true') { isDark = true; document.body.classList.add('dark'); document.getElementById('theme-btn').textContent = '☀️'; }  
+    document.getElementById('year').textContent = new Date().getFullYear();  
+    document.querySelectorAll('a[href^="#"]').forEach(a => { a.addEventListener('click', function(e) { e.preventDefault(); document.querySelector(this.getAttribute('href'))?.scrollIntoView({behavior: 'smooth'}); }); });  
+  </script>  
+</body>  
+</html>  
